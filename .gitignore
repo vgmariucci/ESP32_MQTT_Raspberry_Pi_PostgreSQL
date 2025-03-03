@@ -1,0 +1,10 @@
+#.env files
+.env
+
+# Secret.h files
+Secrets.h
+
+# Some especific directories
+fritzing_files/
+arduino_files/
+
