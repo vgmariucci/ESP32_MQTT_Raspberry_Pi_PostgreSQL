@@ -37,7 +37,9 @@ This circuit monitors the DHT22 sensor readings at intervals, adjusted directly 
 
 The project was developed using **Arduino IDE 2.3.4** and all sketches are found in **arduino_files** directory.
 
-## Installing and setting a Postgres server in Raspberry Pi to create the Database to store the Data from ESP32
+## Installing and setting up a Postgres server on Raspberry Pi to create the Database to store the Data from ESP32
+
+
 
 
 
