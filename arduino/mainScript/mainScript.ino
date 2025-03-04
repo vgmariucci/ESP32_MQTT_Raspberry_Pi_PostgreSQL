@@ -34,7 +34,7 @@
 #include <WiFiUdp.h>
 #include <DHT.h>
 #include <DS3232RTC.h>      // https://github.com/JChristensen/DS3232RTC
-#include "Secrets.h"        // Hold Authorization Credentias that enables the ESP32 HTTP Post to the MySQL database hosted in a GCP Virtual Machine
+#include "Secrets.h"        // Hold Authorization Credentials
 #include <vector> // Include vector for dynamic buffer
 
 //************************** GLOBAL VARIABLES  *****************************
