@@ -35,7 +35,7 @@ The circuit setup is shown below:
 
 This circuit monitors the DHT22 sensor readings at intervals, adjusted directly in the firmware. The DHT22 readings are logged into an SD Card accompanying some other parameters like the RTC date and time, localization of installation, etc. The same data logged into the SD Card is sent using the MQTT protocol to the Raspberry Pi, which saves the data into a Postgres database.
 
-The project was developed using **Arduino IDE 2.3.4** and all sketches are found in **arduino_files** directory.
+The project was developed using **Arduino IDE 2.3.4** and all sketches are found in **arduino** directory.
 
 ## Installing and setting up a Postgres server on Raspberry Pi to create the Database to store the Data from ESP32
 
