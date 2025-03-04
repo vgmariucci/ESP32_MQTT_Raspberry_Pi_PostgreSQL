@@ -5,6 +5,7 @@
 Secrets.h
 
 # Some especific directories
-fritzing_files/
-arduino_files/
-
+fritzing/
+arduino/
+python/
+sql/
