@@ -20,22 +20,33 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
+// Libraries for WebServer and WiFiManager
 #include <WebServer.h>
 #include <WiFiManager.h>
+
+// Libraries for OLED display
 #include <Wire.h>
-#include <SPI.h> 
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+
 // Libraries for SD card
+#include <SPI.h> 
 #include "FS.h"
 #include "SD.h"
+
 // Library to deal with time values
 #include "time.h"
 #include <WiFiUdp.h>
+
+// Libraries for DHT22 sensor and DS3231 RTC module
 #include <DHT.h>
 #include <DS3232RTC.h>      // https://github.com/JChristensen/DS3232RTC
-#include "Secrets.h"        // Hold Authorization Credentials
-#include <vector> // Include vector for dynamic buffer
+
+// Include the Secrets.h file to hold the Authorization Credentials
+#include "Secrets.h"
+
+// Include vector for dynamic buffer
+#include <vector> 
 
 //************************** GLOBAL VARIABLES  *****************************
 unsigned long previousMillisForOledRefresh = 0;
@@ -114,9 +125,7 @@ void setup(){
 
   dht.begin();                                                  // Initialize DHT22 sensor
 
-  // Configure MQTT
-  // espClient.setCACert(mqtt_root_ca); // Use the same CA cert as before
-  mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
+  mqttClient.setServer(MQTT_SERVER, MQTT_PORT);                 // Configure MQTT
 }
 
 void loop() {

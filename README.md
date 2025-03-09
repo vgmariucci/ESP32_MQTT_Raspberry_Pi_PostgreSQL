@@ -4,7 +4,7 @@
 
 In this repo I present the steps to set up the MQTT Mosquitto broker in the Raspberry Pi aimed to receive sensor readings from an ESP32 and then save it in a PostgreSQL database.
 
-## Requirements and Modifications to Test This Repo
+## Requirements to Test This Repo
 
 1- ESP32 WROOM developer board (DOIT ESP32 DEVKIT V1)
 
@@ -12,11 +12,11 @@ In this repo I present the steps to set up the MQTT Mosquitto broker in the Rasp
 
 3- A .env file should be included on the server side to store sensitive information used to grant application access.
 
-4- Use Python scripts to subscribe to the published topic and insert data into the PostgreSQL database.
+4- Use Python script as Linux service to subscribe to the MQTT topic and insert data into the PostgreSQL database.
 
 ## ESP32 Circuit Setup Used in this Project
 
-The complete circuit is composed by following components and modules:
+The complete circuit is composed by the following components and modules:
 
 - DOIT ESP32 DEVKIT V1
 - DHT22
@@ -25,7 +25,6 @@ The complete circuit is composed by following components and modules:
 - Real Time Clock Module (RTC DS3231)
 - 2 Push Buttons
 - 3 10 kohm resistors
-
 
 The circuit setup is shown below:
 
@@ -37,7 +36,27 @@ This circuit monitors the DHT22 sensor readings at intervals, adjusted directly 
 
 The project was developed using **Arduino IDE 2.3.4** and all sketches are found in **arduino** directory.
 
+For convinience it was used an **ssh** connection with Raspberry Pi ([how to set up an ssh connection in Raspberry Pi](https://github.com/vgmariucci/Setting_Up_LAMP_Server_With_Raspberry_Pi)).
+
 ## Installing and setting up a Postgres server on Raspberry Pi to create the Database to store the Data from ESP32
+
+After connecting with Raspberry Pi, the first thing to do is installing the PostgreSQL server. Use the following bash commands to do that:
+
+```bash
+sudo apt update
+```
+
+```bash
+sudo apt install postgresql postgresql-contrib
+```
+
+```bash
+sudo systemctl start postgresql
+```
+
+```bash
+sudo systemctl enable postgresql
+```
 
 
 
