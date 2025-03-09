@@ -36,7 +36,7 @@ This circuit monitors the DHT22 sensor readings at intervals, adjusted directly 
 
 The project was developed using **Arduino IDE 2.3.4** and all sketches are found in **arduino** directory.
 
-For convinience it was used an **ssh** connection with Raspberry Pi ([how to set up an ssh connection in Raspberry Pi](https://github.com/vgmariucci/Setting_Up_LAMP_Server_With_Raspberry_Pi)).
+For convenience it was used an **ssh** connection with Raspberry Pi ([how to set up an ssh connection in Raspberry Pi](https://github.com/vgmariucci/Setting_Up_LAMP_Server_With_Raspberry_Pi)).
 
 ## Installing and setting up a Postgres server on Raspberry Pi to create the Database to store the Data from ESP32
 
