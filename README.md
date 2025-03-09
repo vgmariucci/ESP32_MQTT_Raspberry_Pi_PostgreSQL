@@ -92,7 +92,7 @@ CREATE TABLE sensor_readings (
     iot_device_serial_number TEXT NOT NULL,
     temperature NUMERIC(5,2),
     humidity NUMERIC(5,2),
-    wifi_status BOOLEAN
+    wifi_status INTEGER
 );
 ```
 3- Exit PostgreSQL
@@ -100,3 +100,89 @@ CREATE TABLE sensor_readings (
 ```sql
 \q
 ```
+
+## Install Python Dependencies
+
+```bash
+sudo apt install python3 python3-pip
+```
+```bash
+pip3 install paho-mqtt psycopg2-binary python-dotenv
+```
+
+##  Setting Up MQTT Broker
+
+1- Install Mosquitto (MQTT Broker)
+
+```bash
+sudo apt update
+```
+```bash
+sudo apt install mosquitto mosquitto-clients
+```
+
+2- Configure Mosquitto for Non-TLS
+
+Edit the Mosquitto configuration:
+
+```bash
+sudo nano /etc/mosquitto/conf.d/default.conf
+```
+Add these lines to enable authentication on port 1883:
+
+```ini
+listener 1883
+allow_anonymous false
+password_file /etc/mosquitto/passwd
+```
+3- Create Password File:
+
+```bash
+sudo mosquitto_passwd -c /etc/mosquitto/passwd mqtt_user
+```
+Enter your password when prompted (e.g., mqtt_password).
+
+4- Restart Mosquitto
+
+```bash
+sudo systemctl restart mosquitto
+```
+
+5- Install and Enable Uncomplicated Firewall (UFW)
+
+```bash
+sudo apt-get install ufw
+```
+
+```bash
+sudo ufw enable
+```
+
+6- Allow Port 1883 in Firewall
+
+```bash
+sudo ufw allow 1883
+```
+```bash
+sudo ufw reload
+```
+
+### Test MQTT Broker Locally
+
+1- Subscribe to a Topic (Ubuntu MATE Terminal)
+
+```bash
+mosquitto_sub -h localhost -p 1883 -u mqtt_user -P mqtt_password -t "sensor/data" -v
+```
+
+2- Publish a Test Message (New Terminal)
+
+```bash
+mosquitto_pub -h localhost -p 1883 -u mqtt_user -P mqtt_password -t "sensor/data" -m "hello"
+```
+If successful, you’ll see hello in the subscriber terminal.
+
+
+
+
+
