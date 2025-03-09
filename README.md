@@ -169,7 +169,7 @@ sudo ufw reload
 
 ### Test MQTT Broker Locally
 
-1- Subscribe to a Topic (Ubuntu MATE Terminal)
+1- Subscribe to a Topic
 
 ```bash
 mosquitto_sub -h localhost -p 1883 -u mqtt_user -P mqtt_password -t "sensor/data" -v
