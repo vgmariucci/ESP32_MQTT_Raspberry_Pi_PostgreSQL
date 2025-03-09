@@ -86,17 +86,10 @@ Access the Postgres bash manager
 ```bash
 psql
 ```
-Use your preferred command to list the databases:
+Command to list the databases:
 
 ```sql
 \l
-```
-```sql
-\list
-```
-
-```bash
-psql -U postgres -c "\l"
 ```
 
 ### Create Table for Sensor Data
@@ -218,6 +211,6 @@ mosquitto_pub -h localhost -p 1883 -u mqtt_user -P mqtt_password -t "sensor/data
 If successful, you’ll see hello in the subscriber terminal.
 
 
-
+## Testing the Python script mqtt_subscriber.py and setting it as a Linux service
 
 
