@@ -45,22 +45,58 @@ After connecting with Raspberry Pi, the first thing to do is installing the Post
 ```bash
 sudo apt update
 ```
-
 ```bash
 sudo apt install postgresql postgresql-contrib
 ```
-
 ```bash
 sudo systemctl start postgresql
 ```
-
 ```bash
 sudo systemctl enable postgresql
 ```
 
+### Create Database and User
 
+1- Switch to the postgres user:
 
+```bash
+sudo -i -u postgres
+```
+2- Create a database and user:
 
+```bash
+createdb iot_database
+```
+```bash
+psql -c "CREATE USER iot_admin WITH PASSWORD 'your_admin_password';"
+```
+```bash
+psql -c "ALTER USER iot_admin WITH SUPERUSER;"
+```
 
+### Create Table for Sensor Data
 
+1- Connect to the database:
 
+```bash
+psql -d iot_database
+```
+
+2- Create a table:
+
+```sql
+CREATE TABLE sensor_readings (
+    id SERIAL PRIMARY KEY,
+    reading_time TIMESTAMPTZ NOT NULL,
+    customer_ID TEXT NOT NULL,
+    iot_device_serial_number TEXT NOT NULL,
+    temperature NUMERIC(5,2),
+    humidity NUMERIC(5,2),
+    wifi_status BOOLEAN
+);
+```
+3- Exit PostgreSQL
+
+```sql
+\q
+```
