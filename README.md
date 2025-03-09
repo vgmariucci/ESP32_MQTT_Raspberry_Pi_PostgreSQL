@@ -67,11 +67,36 @@ sudo -i -u postgres
 ```bash
 createdb iot_database
 ```
+If you need to exclude the database for some reason (for instance a typo in the name) use the following command:
+
+```bash
+dropdb iot_database
+```
+3- Create a SUPERUSER
 ```bash
 psql -c "CREATE USER iot_admin WITH PASSWORD 'your_admin_password';"
 ```
 ```bash
 psql -c "ALTER USER iot_admin WITH SUPERUSER;"
+```
+4- To chek if the database was created (or dropped) use the commands below:
+
+Access the Postgres bash manager
+
+```bash
+psql
+```
+Use your preferred command to list the databases:
+
+```sql
+\l
+```
+```sql
+\list
+```
+
+```bash
+psql -U postgres -c "\l"
 ```
 
 ### Create Table for Sensor Data
@@ -85,7 +110,7 @@ psql -d iot_database
 2- Create a table:
 
 ```sql
-CREATE TABLE sensor_readings (
+    CREATE TABLE sensor_readings (
     id SERIAL PRIMARY KEY,
     reading_time TIMESTAMPTZ NOT NULL,
     customer_ID TEXT NOT NULL,
@@ -93,9 +118,19 @@ CREATE TABLE sensor_readings (
     temperature NUMERIC(5,2),
     humidity NUMERIC(5,2),
     wifi_status INTEGER
-);
+    );
 ```
-3- Exit PostgreSQL
+
+3- Verify the created table:
+
+Using psql Meta-Command (Recommended):
+
+```sql
+\dt
+```
+![list_postgres_database_tables](images/psql_list_tables_cmd.png)
+
+4- Exit PostgreSQL
 
 ```sql
 \q
