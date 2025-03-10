@@ -214,3 +214,39 @@ If successful, you’ll see hello in the subscriber terminal.
 ## Testing the Python script mqtt_subscriber.py and setting it as a Linux service
 
 
+### Organize Files
+
+1- Create a folder in /opt path and name it according with your project. We'll use this folder to store the **mqtt_subscriber.py** script and **.env** file:
+
+```bash
+sudo mkdir /opt/esp32_dht22_project
+
+```
+2- Chek if the folder was created:
+
+```bash
+ls -la /opt/
+```
+![esp32_dht22_folder](images/esp32_dht22_folder.png)
+
+3- You can acces the project's folder or just pass the correct folder path from the directory you are to create a copy of the script **mqtt_subscriber.py** and **.env** from Python folder to a dedicated directory, as shown bellow:
+
+Accessing the project's folder
+
+```bash
+cd /opt/esp32_dht22_project
+```
+Creating the **mqtt_subscriber.py** script
+
+```bash
+sudo nano mqtt_subscriber.py
+```
+![mqtt_subscriber_python_script](images/mqtt_subscriber_python_script.png)
+
+Creating the **.env** script
+
+```bash
+sudo nano .env
+```
+Use the .env_example template to set your .env file for your project.
+

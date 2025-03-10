@@ -7,19 +7,19 @@ import os
 load_dotenv()  # Load environment variables from .env
 
 # PostgreSQL Configuration
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_NAME = os.getenv("DB_NAME", "iot_database")
-DB_USER = os.getenv("DB_USER", "iot_admin")
-DB_PASS = os.getenv("DB_PASS", "your_admin_password")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASS = os.getenv("DB_PASS")
 
 # MQTT Configuration
 MQTT_BROKER = os.getenv("MQTT_BROKER")
-MQTT_PORT = os.getenv("MQTT_PORT")
+MQTT_PORT = int(os.getenv("MQTT_PORT"))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC")
 MQTT_USER = os.getenv("MQTT_USER")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD")
 
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, flags, rc, properties):  # Add `properties` for VERSION2
     print(f"Connected to MQTT with code {rc}")
     client.subscribe(MQTT_TOPIC)
 
@@ -59,7 +59,8 @@ def insert_into_db(data):
     finally:
         if conn: conn.close()
 
-client = mqtt.Client()
+# Initialize MQTT client with VERSION2
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
 client.on_connect = on_connect
 client.on_message = on_message
