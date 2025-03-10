@@ -50,7 +50,7 @@
 
 //************************** GLOBAL VARIABLES  *****************************
 unsigned long previousMillisForOledRefresh = 0;
-const long intervalBetweenOledRefresh = 1*60000; // Time interval for data refresh for OLED display and Serial Monitor
+const long intervalBetweenOledRefresh = 1*10000; // Time interval for data refresh for OLED display and Serial Monitor
 
 // Variables to store the readings from DHT22 sensor
 float temperature;
@@ -75,7 +75,7 @@ String dataMessage; // Variable to store the string composed by the measured par
 
 // Define the constants to store the configuration for getting NTP data
 const char* ntpServer = "pool.ntp.org";
-const long  gmtOffset_sec = -3*3600;
+const long  gmtOffset_sec = -4*3600;
 const int   daylightOffset_sec = 3600;
 
 bool setDateTimeDS3231RTCUsingNTPClientFlag = 0;
@@ -86,7 +86,7 @@ std::vector<String> dataBuffer;
 // Global buffer for MQTT messages
 std::vector<String> mqttDataBuffer;
 
-const size_t BUFFER_SIZE = 15; // Define the buffer size
+const size_t BUFFER_SIZE = 10; // Define the buffer size
 
 
 //***************** OBJECTS INSTANTIANTIONS *************
