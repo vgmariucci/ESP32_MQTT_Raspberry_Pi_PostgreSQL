@@ -11,6 +11,7 @@ DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
+DB_SENSOR_READINGS_TABLE = os.getenv("DB_SENSOR_READINGS_TABLE")
 
 # MQTT Configuration
 MQTT_BROKER = os.getenv("MQTT_BROKER")
@@ -40,14 +41,14 @@ def insert_into_db(data):
             password=DB_PASS
         )
         cur = conn.cursor()
-        cur.execute("""
-            INSERT INTO sensor_readings 
+        cur.execute(f"""
+            INSERT INTO {DB_SENSOR_READINGS_TABLE} 
             (reading_time, customer_ID, iot_device_serial_number, temperature, humidity, wifi_status)
             VALUES (%s, %s, %s, %s, %s, %s)
         """, (
             data["reading_time"],
             data["customer_ID"],
-            data["serial"],
+            data["iot_device_serial_number"],
             data["temperature"],
             data["humidity"],
             data["wifi_status"]

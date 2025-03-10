@@ -103,7 +103,7 @@ psql -d iot_database
 2- Create a table:
 
 ```sql
-    CREATE TABLE sensor_readings (
+CREATE TABLE sensor_readings (
     id SERIAL PRIMARY KEY,
     reading_time TIMESTAMPTZ NOT NULL,
     customer_ID TEXT NOT NULL,
@@ -111,7 +111,7 @@ psql -d iot_database
     temperature NUMERIC(5,2),
     humidity NUMERIC(5,2),
     wifi_status INTEGER
-    );
+);
 ```
 
 3- Verify the created table:
@@ -127,6 +127,14 @@ Using psql Meta-Command (Recommended):
 
 ```sql
 \q
+```
+
+5- Test Manually
+
+```sql
+INSERT INTO sensor_readings 
+(reading_time, customer_ID, iot_device_serial_number, temperature, humidity, wifi_status)
+VALUES (NOW(), 'test_customer', 'esp32_001', 25.5, 60.0, 1);
 ```
 
 ## Install Python Dependencies
@@ -211,10 +219,9 @@ mosquitto_pub -h localhost -p 1883 -u mqtt_user -P mqtt_password -t "sensor/data
 If successful, you’ll see hello in the subscriber terminal.
 
 
-## Testing the Python script mqtt_subscriber.py and setting it as a Linux service
+## Testing the Python script mqtt_subscriber.py 
 
-
-### Organize Files
+### Organizing the Files
 
 1- Create a folder in /opt path and name it according with your project. We'll use this folder to store the **mqtt_subscriber.py** script and **.env** file:
 
@@ -231,22 +238,48 @@ ls -la /opt/
 
 3- You can acces the project's folder or just pass the correct folder path from the directory you are to create a copy of the script **mqtt_subscriber.py** and **.env** from Python folder to a dedicated directory, as shown bellow:
 
-Accessing the project's folder
+- Accessing the project's folder
 
 ```bash
 cd /opt/esp32_dht22_project
 ```
-Creating the **mqtt_subscriber.py** script
+- Creating the **mqtt_subscriber.py** script
 
 ```bash
 sudo nano mqtt_subscriber.py
 ```
 ![mqtt_subscriber_python_script](images/mqtt_subscriber_python_script.png)
 
-Creating the **.env** script
+- Creating the **.env** script
 
 ```bash
 sudo nano .env
 ```
 Use the .env_example template to set your .env file for your project.
+
+4- Test the **mqtt_subscriber.py**:
+
+```bash
+python3 mqtt_subscriber.py
+```
+
+![mqtt_subscriber_python_script_testing](images/mqtt_subscriber_python_script_testing.png)
+
+5- Check the tabe in Postgres iot_database:
+
+- Access the **iot_database**
+```bash
+sudo -u postgres psql -d iot_database
+```
+![postgres_iot_database](images/postgres_iot_database.png)
+
+- Select the last 10 rows in **sensor_readings** table
+
+```sql
+SELECT * FROM sensor_readings ORDER BY reading_time DESC LIMIT 10;
+```
+
+![select_rows_from_senso_readings_table](images/select_rows_from_senso_readings_table.png)
+
+## Setting the mqtt_subscriber.py as a Linux service
 
