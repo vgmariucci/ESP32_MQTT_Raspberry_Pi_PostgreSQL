@@ -283,3 +283,111 @@ SELECT * FROM sensor_readings ORDER BY reading_time DESC LIMIT 10;
 
 ## Setting the mqtt_subscriber.py as a Linux service
 
+To create a service to keep running the mqtt_subscriber.py you must follow the steps below:
+
+1- Create a new systemd service file:
+
+```bash
+sudo nano /etc/systemd/system/mqtt_subscriber.service
+```
+
+2- Add the following content (adjust paths as needed):
+
+```ini
+[Unit]
+Description=MQTT Subscriber Service
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/esp32_dht22_project/
+ExecStart=/usr/bin/python3 /opt/esp32_dht22_project/mqtt_subscriber.py
+Restart=always
+RestartSec=10
+EnvironmentFile=/opt/esp32_dht22_project/.env
+
+[Install]
+WantedBy=multi-user.target
+```
+![mqtt_subscriber_service](images/mqtt_subscriber_service.png)
+
+3- Set permissions:
+
+```bash
+sudo chown -R www-data:www-data /opt/esp32_dht22_project
+```
+
+```bash
+sudo chmod 755 /opt/esp32_dht22_project/mqtt_subscriber.py
+```
+
+4- Enable and Start the Service
+
+- Reload systemd to recognize the new service:
+
+    ```bash
+    sudo systemctl daemon-reload
+    ```
+- Start the service:
+
+    ```bash
+    sudo systemctl start mqtt_subscriber
+    ```
+- Enable it to start on boot:
+
+    ```bash
+    sudo systemctl enable mqtt_subscriber
+    ```
+
+![mqtt_subscriber_service_starting](images/mqtt_subscriber_service_starting.png)
+
+After the commands above, you'll see the message highlighted on the print.
+
+5-  Verify the Service
+
+- Check the status:
+
+    ```bash
+    sudo systemctl status mqtt_subscriber
+    ```
+
+    If everything goes ok, you'll see the output status message with the *active (running)* message:
+
+    ![mqtt_subscriber_active_service](images/mqtt_subscriber_active_service.png)
+
+- View logs:
+
+    ```bash
+    sudo journalctl -u mqtt_subscriber -f
+    ```
+
+6- Bug-fix for the paho-mqtt package
+
+The **mqtt_subscriber** service may throw a **ModuleNotFoundError: No module named 'paho'** error because it cannot find or access the paho-mqtt package. To fix this we can try: 
+
+-   Install it globally using **pip3** (considering Python 3):
+
+    ```bash
+    sudo pip3 install paho-mqtt
+    ```
+-   Verify installation
+
+    ```bash
+    pip3 show paho-mqtt
+    ```
+-   Reload systemd and restart the service
+
+    ```bash
+    sudo systemctl daemon-reload
+    ```
+    ```bash
+    sudo systemctl restart mqtt_subscriber.service
+    ```
+-   Check service status/logs
+
+    ```bash
+    sudo systemctl status mqtt_subscriber.service
+    ```
+    ![bug_fix](images/bug_fix.png)
+
