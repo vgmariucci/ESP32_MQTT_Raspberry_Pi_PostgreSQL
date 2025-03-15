@@ -2,7 +2,7 @@
 
 #define SCREEN_WIDTH 128          // OLED display width, in pixels
 #define SCREEN_HEIGHT 64          // OLED display height, in pixels
-#define OLED_SD1306_ADDRESS 0x3C  //OLED I2C Address
+#define OLED_SD1306_ADDRESS 0x3C  // OLED I2C Address
 
 #define DHTPIN 4                  // Digital pin where data will be received from DHT22
 #define DHTTYPE DHT22             // DHT22 (AM2302) temperature and relative himidity sensor.
@@ -50,7 +50,7 @@
 
 //************************** GLOBAL VARIABLES  *****************************
 unsigned long previousMillisForOledRefresh = 0;
-const long intervalBetweenOledRefresh = 1*10000; // Time interval for data refresh for OLED display and Serial Monitor
+const long intervalBetweenOledRefresh = 1*60000; // Time interval for data refresh for OLED display and Serial Monitor
 
 // Variables to store the readings from DHT22 sensor
 float temperature;
@@ -86,7 +86,7 @@ std::vector<String> dataBuffer;
 // Global buffer for MQTT messages
 std::vector<String> mqttDataBuffer;
 
-const size_t BUFFER_SIZE = 10; // Define the buffer size
+const size_t BUFFER_SIZE = 15; // Define the buffer size
 
 
 //***************** OBJECTS INSTANTIANTIONS *************
