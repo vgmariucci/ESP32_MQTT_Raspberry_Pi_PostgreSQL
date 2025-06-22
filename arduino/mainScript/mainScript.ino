@@ -1,20 +1,29 @@
 //********************************* DEFINES *******************************
 
-#define SCREEN_WIDTH 128          // OLED display width, in pixels
-#define SCREEN_HEIGHT 64          // OLED display height, in pixels
-#define OLED_SD1306_ADDRESS 0x3C  // OLED I2C Address
+// OLED Display Pins (Keep I2C on 16/17)
+#define I2C_SDA 8
+#define I2C_SCL 9
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_SD1306_ADDRESS 0x3C
 
 #define DHTPIN 4                  // Digital pin where data will be received from DHT22
 #define DHTTYPE DHT22             // DHT22 (AM2302) temperature and relative himidity sensor.
 
-#define led 2                     // Built-in LED for DOIT ESP32 DEVKIT V1 (used to notify when the ESP32 is set in AP mode to configure the WiFi connection)
-#define displayBtn 26             // Button to change the data shown in the Oled display
-#define wifiBtn 25                // Button to set WiFi connection for ESP32
+#define LED_PIN 48                // Built-in LED for DOIT ESP32S3 DEVK MODULE (used to notify when the ESP32 is set in AP mode to configure the WiFi connection)
+#define DISPLAY_BTN 5            // Button to change the data shown in the Oled display
+#define WIFI_BTN 6               // Button to set WiFi connection for ESP32
+#define NUM_LEDS    1
+#define BRIGHTNESS  32
 
-#define SD_CS 5                   // Define CS pin for the SD card module
+#define SD_CS 10                   // Define CS pin for the SD card module
+
 
 //****************************** INCLUDES ********************************
 #include <WiFi.h>
+
+// RGB LED library
+#include <FastLED.h>
 
 // Add MQTT library:
 #include <PubSubClient.h>
@@ -104,14 +113,23 @@ DHT dht(DHTPIN, DHTTYPE);
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 
+// Define the LED array
+CRGB leds[NUM_LEDS];
 //******************* SUPPORT FUNCTIONS *************************
 
 void setup(){
-
-  pinMode(led, OUTPUT);                                         // Set the ledPin as an output of signal pin
   
-  pinMode(displayBtn, INPUT);                                   // Set the displayBtn as an input of signal
-  pinMode(wifiBtn, INPUT);                                      // Set the wifiBtn as an input of signal
+  // Initialize FastLED
+  FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(BRIGHTNESS);                                  
+  
+  // Set the LED color
+  leds[0] = CRGB(0, 0, 0);
+  FastLED.show();
+  
+  //Configure pins 45 and 48 as signal inputs
+  pinMode(DISPLAY_BTN, INPUT);
+  pinMode(WIFI_BTN, INPUT);
 
   Serial.begin(115200);                                         // Set and initialize the serial communication
 

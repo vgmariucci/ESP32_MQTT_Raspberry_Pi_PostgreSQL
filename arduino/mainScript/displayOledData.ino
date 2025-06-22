@@ -1,5 +1,6 @@
 void displayOledData() {
 
+
   if(!AP_mode_status){
 
     switch (oledState) {
@@ -33,6 +34,13 @@ void displayOledData() {
         break;
 
       default:
+        // display.clearDisplay();
+        // display.setTextSize(1);
+        // display.setCursor(10, 40);
+        // display.print("Date and Time");
+        // display.setCursor(60, 40);
+        // display.print(reading_time);
+        // display.display();
         break;
     }
   }
@@ -54,7 +62,9 @@ void displayOledData() {
       configure_WiFi();
       if(WiFi.status() == WL_CONNECTED){
           AP_mode_status = 0;
-          digitalWrite(led, 0);
+          // Set the LED color
+          leds[0] = CRGB(0, 0, 0);
+          FastLED.show();
       }
   }
 }

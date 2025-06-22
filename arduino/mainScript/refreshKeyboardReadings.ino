@@ -6,9 +6,10 @@ unsigned long lastDisplayBtnPressTime = 0;
 unsigned long lastWifiBtnPressTime = 0;
 
 void refreshKeyboardReadings() {
+  
   // Read button states
-  displayBtnStatus = digitalRead(displayBtn);
-  wifiBtnStatus = digitalRead(wifiBtn);
+  displayBtnStatus = digitalRead(DISPLAY_BTN);
+  wifiBtnStatus = digitalRead(WIFI_BTN);
 
   // Handle display button
   if (!displayBtnStatus && millis() - lastDisplayBtnPressTime > debounceDelay) {
@@ -16,12 +17,14 @@ void refreshKeyboardReadings() {
 
     oledState = !oledState;
     displayBtnCounter++;
-    digitalWrite(led, 1);
+    leds[0] = CRGB(255, 0, 0);
+    FastLED.show();
 
     if (displayBtnCounter > 2) {
       oledState = 0;
       displayBtnCounter = 0;
-      digitalWrite(led, 0);
+      leds[0] = CRGB(0, 0, 0);
+      FastLED.show();
     }
   }
 
@@ -29,7 +32,8 @@ void refreshKeyboardReadings() {
   if (!wifiBtnStatus && millis() - lastWifiBtnPressTime > debounceDelay) {
     lastWifiBtnPressTime = millis(); // Update the last press time
 
-    digitalWrite(led, 1); // Example LED feedback
+    leds[0] = CRGB(255, 0, 0);
+    FastLED.show();
 
     // Enables the device to AP mode to set the WiFi connection
     AP_mode_status = 1;
