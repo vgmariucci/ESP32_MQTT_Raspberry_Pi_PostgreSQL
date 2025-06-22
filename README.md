@@ -1,4 +1,4 @@
-# SENDING ESP32 DATA USING MQTT TO A SERVER WITH RASPBERRY PI
+# SENDING ESP32(S3) DATA USING MQTT TO A SERVER WITH RASPBERRY PI
 
 ## Description
 
@@ -18,7 +18,7 @@ In this repo I present the steps to set up the MQTT Mosquitto broker in the Rasp
 
 The complete circuit is composed by the following components and modules:
 
-- DOIT ESP32 DEVKIT V1
+- DOIT ESP32 DEVKIT V1 or EPS32S3 Dev Module
 - DHT22
 - SD Card Module
 - Oled Display SSD1306
@@ -26,7 +26,7 @@ The complete circuit is composed by the following components and modules:
 - 2 Push Buttons
 - 3 10 kohm resistors
 
-The circuit setup is shown below:
+The circuit setup is shown below for ESP32 DEVKIT V1:
 
 ![circuit_diagram](images/electronic_setup.png)
 
