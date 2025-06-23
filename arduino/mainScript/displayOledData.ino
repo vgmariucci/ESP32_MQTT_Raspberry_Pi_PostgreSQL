@@ -1,5 +1,8 @@
 void displayOledData() {
 
+  String oled_reading_time_formatted;
+
+  oled_reading_time_formatted = convertDateTimeToOledDisplay(reading_time);
 
   if(!AP_mode_status){
 
@@ -17,6 +20,9 @@ void displayOledData() {
         display.cp437(true);
         display.write(167);
         display.print("C");
+        display.setTextSize(1);
+        display.setCursor(30, 50);
+        display.print(oled_reading_time_formatted);
         display.display();
         break;
 
@@ -30,17 +36,13 @@ void displayOledData() {
         display.print(humidity,1);
         display.setCursor(90, 20);
         display.print("%");
+        display.setTextSize(1);
+        display.setCursor(30, 50);
+        display.print(oled_reading_time_formatted);
         display.display();
         break;
 
       default:
-        // display.clearDisplay();
-        // display.setTextSize(1);
-        // display.setCursor(10, 40);
-        // display.print("Date and Time");
-        // display.setCursor(60, 40);
-        // display.print(reading_time);
-        // display.display();
         break;
     }
   }

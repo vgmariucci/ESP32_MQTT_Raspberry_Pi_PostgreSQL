@@ -14,6 +14,18 @@ void printTime(time_t t) {
     printI00(second(t), ' ');
 }
 
+// Convert reading_time value to be presented on the OLED Display
+String convertDateTimeToOledDisplay(String reading_time) {
+
+  String year = reading_time.substring(0, 4);
+  String month = reading_time.substring(5, 7);
+  String day = reading_time.substring(8, 10);
+  String hour = reading_time.substring(11, 13);
+  String minute = reading_time.substring(14, 16);
+  
+  return day + "/" + month + "/" + year + " " + hour + ":" + minute;
+}
+
 String getDS3231DateTime(){
     
     time_t t = myRTC.get();  // Retrieve time from DS3231
@@ -63,6 +75,7 @@ void setDS3231DateTime(uint8_t yearNTP, uint8_t monthNTP, uint8_t dayNTP, uint8_
 
 // Function to get date and time from NTPClient
 String getNTPClientDateTimeAndSetDS3231RTC(){
+    
     struct tm timeinfo;
 
     if (!getLocalTime(&timeinfo)) {
