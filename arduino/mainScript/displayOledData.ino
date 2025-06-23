@@ -1,8 +1,5 @@
 void displayOledData() {
 
-  String oled_reading_time_formatted;
-
-  oled_reading_time_formatted = convertDateTimeToOledDisplay(reading_time);
 
   if(!AP_mode_status){
 
@@ -22,7 +19,7 @@ void displayOledData() {
         display.print("C");
         display.setTextSize(1);
         display.setCursor(30, 50);
-        display.print(oled_reading_time_formatted);
+        display.print(convertDateTimeToOledDisplay(reading_time));
         display.display();
         break;
 
@@ -38,7 +35,7 @@ void displayOledData() {
         display.print("%");
         display.setTextSize(1);
         display.setCursor(30, 50);
-        display.print(oled_reading_time_formatted);
+        display.print(convertDateTimeToOledDisplay(reading_time));
         display.display();
         break;
 
