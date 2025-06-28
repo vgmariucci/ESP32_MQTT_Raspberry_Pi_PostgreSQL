@@ -17,12 +17,14 @@ void refreshKeyboardReadings() {
 
     oledState = !oledState;
     displayBtnCounter++;
-    leds[0] = CRGB(255, 0, 0);
+    // Turn ton the Blue LED
+    leds[0] = CRGB(0, 0, 255);
     FastLED.show();
 
     if (displayBtnCounter > 2) {
       oledState = 0;
       displayBtnCounter = 0;
+      // Turn off the RGB LED
       leds[0] = CRGB(0, 0, 0);
       FastLED.show();
     }
@@ -32,7 +34,8 @@ void refreshKeyboardReadings() {
   if (!wifiBtnStatus && millis() - lastWifiBtnPressTime > debounceDelay) {
     lastWifiBtnPressTime = millis(); // Update the last press time
 
-    leds[0] = CRGB(255, 0, 0);
+    //Turn on the Red and Green LEDs (Aka Yellow color)
+    leds[0] = CRGB(255, 255, 0);
     FastLED.show();
 
     // Enables the device to AP mode to set the WiFi connection

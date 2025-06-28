@@ -157,6 +157,9 @@ void loop() {
                                                                  // has already been sincronized with NTP client timestamp
         getNTPClientDateTimeAndSetDS3231RTC();                   // If it doesn't, call the funtion to to so.
         setDateTimeDS3231RTCUsingNTPClientFlag = 1;              // Set the flag !setDateTimeDS3231RTCUsingNTPClientFlag to prevent enter in sync mode again.
+        // Blink the RGB LED
+        leds[0] = CRGB(0, 255, 255);
+        FastLED.show();
     }
   }
 
@@ -183,9 +186,17 @@ void loop() {
       else{
           Serial.println("Failed to send data to server: Wifi Disconnected");
           wifiStatus = false;
+          // Turn on the Red LED
+          leds[0] = CRGB(255, 0, 0);
+          FastLED.show();
         }
       oledState++;
-      if(oledState > 2) oledState = 0;
+      if(oledState > 2) {
+        oledState = 0;
+        // Turn off the RGB LED
+        leds[0] = CRGB(0, 0, 0);
+        FastLED.show();
+      }
   }
   else displayOledData();
   

@@ -10,7 +10,7 @@ void bufferMqttData() {
   "}";
 
   mqttDataBuffer.push_back(payload);
-  Serial.println("Data buffered for MQTT.");
+  Serial.println("Data buffered for MQTT.\n");
 
   // Send if buffer is full
   if (mqttDataBuffer.size() >= BUFFER_SIZE) {
@@ -20,7 +20,8 @@ void bufferMqttData() {
 
 // Function to send buffered MQTT data
 void sendBufferedMqttData() {
-  Serial.println("Sending buffered MQTT data...");
+  Serial.println("Sending buffered MQTT data...\n");
+
   for (size_t i = 0; i < mqttDataBuffer.size(); i++) {
     if (mqttClient.publish(MQTT_TOPIC, mqttDataBuffer[i].c_str())) {
       Serial.println("MQTT publish succeeded: " + mqttDataBuffer[i]);
@@ -28,6 +29,10 @@ void sendBufferedMqttData() {
       Serial.println("MQTT publish failed!");
       break; // Retry later
     }
+    // Turn on the Green LED
+    leds[0] = CRGB(0, 255, 0);
+    FastLED.show();
   }
   mqttDataBuffer.clear();
+
 }
