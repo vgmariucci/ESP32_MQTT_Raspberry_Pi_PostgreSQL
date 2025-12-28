@@ -18,7 +18,7 @@ In this repo I present the steps to set up the MQTT Mosquitto broker in the Rasp
 
 The complete circuit is composed by the following components and modules:
 
-- DOIT ESP32 DEVKIT V1 or EPS32S3 Dev Module
+- DOIT ESP32 DEVKIT V1 or ESP32-S3 Dev Module
 - DHT22
 - SD Card Module
 - Oled Display SSD1306
