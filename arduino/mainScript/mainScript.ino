@@ -83,9 +83,9 @@ String reading_time;
 String dataMessage; // Variable to store the string composed by the measured parameters
 
 // Define the constants to store the configuration for getting NTP data
-const char* ntpServer = "pool.ntp.org";
-const long  gmtOffset_sec = -4*3600;
-const int   daylightOffset_sec = 3600;
+const char* ntpServer = "pool.ntp.org"; // NTP Server
+const int   daylightOffset_sec = 3600;  // One hour for daylight time
+const long  gmtOffset_sec = -3*daylightOffset_sec; // GMT-3
 
 bool setDateTimeDS3231RTCUsingNTPClientFlag = 0;
 
